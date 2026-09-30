@@ -1,0 +1,95 @@
+{
+    "_version": "1.65.0",
+    "sap.app": {
+        "id": "purchase.request",
+        "type": "application",
+        "applicationVersion": {
+            "version": "1.0.0"
+        },
+        "title": "Purchase Request Management",
+        "description": "Purchase Request Management System",
+        "dataSources": {
+            "mainService": {
+                "uri": "odata/v4/purchase-request/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0"
+                }
+            }
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "deviceTypes": {
+            "desktop": true,
+            "tablet": true,
+            "phone": true
+        }
+    },
+    "sap.ui5": {
+        "dependencies": {
+            "minUI5Version": "1.120.0",
+            "libs": {
+                "sap.m": {},
+                "sap.ui.core": {},
+                "sap.fe.core": {},
+                "sap.fe.templates": {}
+            }
+        },
+        "models": {
+            "": {
+                "dataSource": "mainService",
+                "preload": true,
+                "settings": {
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true
+                }
+            }
+        },
+        "routing": {
+            "config": {
+                "routerClass": "sap.f.routing.Router",
+                "type": "View",
+                "viewType": "XML",
+                "path": "sap.fe.templates",
+                "async": true
+            },
+            "routes": [
+                {
+                    "pattern": "",
+                    "name": "PurchaseRequestsList",
+                    "target": "PurchaseRequestsList"
+                },
+                {
+                    "pattern": "PurchaseRequests({key})",
+                    "name": "PurchaseRequestObjectPage",
+                    "target": "PurchaseRequestObjectPage"
+                }
+            ],
+            "targets": {
+                "PurchaseRequestsList": {
+                    "type": "Component",
+                    "id": "PurchaseRequestsList",
+                    "name": "ListReport",
+                    "options": {
+                        "settings": {
+                            "contextPath": "/PurchaseRequests"
+                        }
+                    }
+                },
+                "PurchaseRequestObjectPage": {
+                    "type": "Component",
+                    "id": "PurchaseRequestObjectPage",
+                    "name": "ObjectPage",
+                    "options": {
+                        "settings": {
+                            "contextPath": "/PurchaseRequests"
+                        }
+                    }
+                }
+            }
+        },
+        "flexBundle": false
+    }
+}
