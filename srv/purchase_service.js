@@ -192,60 +192,34 @@ module.exports = cds.service.impl(async function () {
     // REQUEST NUMBER GENERATION
     // ============================================================
 
-    this.before(
-        'CREATE',
-        PurchaseRequests,
-        async (req) => {
 
-            const year =
-                new Date().getFullYear();
+    this.before(['CREATE', 'NEW'], PurchaseRequests, async (req) => {
+        const year = new Date().getFullYear();
 
+        const existing = await SELECT.from(PurchaseRequests);
 
-            const existing =
-                await SELECT
-                    .from(PurchaseRequests);
+        let maxNumber = 0;
 
+        for (const request of existing) {
+            if (!request.requestNo) continue;
 
-            let maxNumber = 0;
+            const parts = request.requestNo.split('-');
 
-
-            for (const request of existing) {
-
-                if (!request.requestNo) {
-                    continue;
-                }
-
-
-                const parts =
-                    request.requestNo.split('-');
-
-
-                if (
-                    parts.length === 3 &&
-                    Number(parts[1]) === year &&
-                    !isNaN(Number(parts[2]))
-                ) {
-
-                    maxNumber =
-                        Math.max(
-                            maxNumber,
-                            Number(parts[2])
-                        );
-                }
+            if (
+                parts.length === 3 &&
+                Number(parts[1]) === year &&
+                !isNaN(Number(parts[2]))
+            ) {
+                maxNumber = Math.max(maxNumber, Number(parts[2]));
             }
-
-
-            const nextNumber =
-                maxNumber + 1;
-
-
-            req.data.requestNo =
-                `PR-${year}-${String(nextNumber).padStart(6, '0')}`;
-
-
-            req.data.status = 'Draft';
         }
-    );
+
+        const nextNumber = maxNumber + 1;
+
+        req.data.requestNo = `PR-${year}-${String(nextNumber).padStart(6, '0')}`;
+        req.data.status = 'Draft';
+    });
+
 
 
     // ============================================================

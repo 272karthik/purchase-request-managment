@@ -1,5 +1,5 @@
 {
-  "name": "purchase-request-management",
+  "name": "purchase-request-managment2",
   "version": "1.0.0",
   "private": true,
   "dependencies": {
@@ -9,62 +9,13 @@
   },
   "devDependencies": {
     "@cap-js/sqlite": "^3",
-    "@sap/cds-dk": "^10",
-    "cds-plugin-ui5": "^0.17.0",
-    "rimraf": "^5.0.5",
-    "mbt": "^1.2.49"
+    "@sap/cds-dk": "^10.1.0",
+    "mbt": "^1.2.49",
+    "rimraf": "^5.0.5"
   },
   "scripts": {
     "start": "cds-serve",
-    "watch": "cds watch --open purchase_request/index.html?sap-ui-xx-viewCache=false --livereload false",
     "build": "rimraf resources mta_archives && mbt build --mtar archive",
     "deploy": "cf deploy mta_archives/archive.mtar --retries 1"
-  },
-  "cds": {
-    "requires": {
-      "auth": {
-        "kind": "mocked",
-        "users": {
-          "Manager": {
-            "password": "Manager",
-            "roles": [
-              "Manager"
-            ]
-          },
-          "Employee": {
-            "password": "Employee",
-            "roles": [
-              "Employee"
-            ]
-          },
-          "SeniorManager": {
-            "password": "SeniorManager",
-            "roles": [
-              "SeniorManager"
-            ]
-          },
-          "Director": {
-            "password": "Director",
-            "roles": [
-              "Director"
-            ]
-          }
-        }
-      },
-      "[production]": {
-        "auth": {
-          "kind": "xsuaa"
-        }
-      },
-      "html5-repo": true,
-      "destinations": true,
-      "workzone": true
-    }
-  },
-  "workspaces": [
-    "app/*"
-  ],
-  "sapux": [
-    "app/purchase_request"
-  ]
+  }
 }

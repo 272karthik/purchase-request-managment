@@ -1,11 +1,7 @@
 {
-  "xsappname": "purchase-request-management-c2f87296trial-dev",
+  "xsappname": "purchase-request-management2",
+  "tenant-mode": "dedicated",
   "scopes": [],
   "attributes": [],
-  "role-templates": [],
-  "oauth2-configuration": {
-    "redirect-uris": [
-      "https://c2f87296trial-dev-purchase-request-management-approuter.cfapps.us10-001.hana.ondemand.com/login/callback"
-    ]
-  }
+  "role-templates": []
 }
